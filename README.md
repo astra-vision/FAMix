@@ -24,3 +24,7 @@ TL; DR: FAMix (for Freeze, Augment, and Mix) is a simple method for domain gener
 <p align="center">
   <img src="./teaser/test_on_videos.gif" style="width:100%"/>
 </p>
+<p align="center">
+Full video:
+<iframe width="560" height="315" src="https://www.youtube.com/embed/vyjtvx2El9Q?si=jr1BvOOMAAv3oAMG" frameborder="0" allowfullscreen></iframe>
+</p>
