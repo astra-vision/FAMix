@@ -10,4 +10,17 @@
 
 Project page: https://astra-vision.github.io/FAMix/
 
-The code will be publised soon.
+The code will be published soon.
+
+TL; DR: FAMix (for Freeze, Augment, and Mix) is a simple method for domain generalized semantic segmentation, based on minimal fine-tuning, language-driven patch-wise style augmentation, and patch-wise style mixing of original and augmented styles.
+
+# Teaser
+<p align="center">
+  <b>Test on unseen youtube videos in different cities<br />
+  Training dataset: GTA5 <br />
+  Backbone: ResNet-50
+  </b>
+</p>
+<p align="center">
+  <img src="./teaser/test_on_videos.gif" style="width:100%"/>
+</p>
