@@ -8,4 +8,6 @@
 
 <sup>2</sup> valeo.ai, Paris, France.<br>
 
-Project page: https://astra-vision.github.io/FAMix/  
+Project page: https://astra-vision.github.io/FAMix/
+
+The code will be publised soon.
