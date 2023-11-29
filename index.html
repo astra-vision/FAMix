@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>🍴 Freeze, Augment and Mix</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <style>
+        .novel-depth-imgs {
+            margin-top:16px
+        }
+        .arrow {
+            right: -8px!important
+        }
+        .rgbs {
+            width: 38%;
+            padding:1px
+        }
+        .novel-depth-item {
+            padding-bottom: 4px;
+        }
+        .bottom-three {
+            margin-bottom: 16px;
+        }
+        .bottom-one {
+            margin-bottom: 2px;
+        }
+    </style>
+    
+</head>
+  <body>
+    <div class="container">
+        <h1 class="text-center display-3 mt-5" style="font-family: Helvetica, sans-serif;"> 🍴 FAMix 🍴</h1>
+        <h3 class="text-center display-6 mt-2" style="font-family: Helvetica, sans-serif;">A Simple Recipe for Language-guided Domain Generalized Segmentation</h3>
+        <div class="row mt-4">   
+            <ul class="list-inline text-center">
+                <h5 class="list-inline-item" style="font-family: Helvetica, sans-serif;"><a href="https://mfahes.github.io/">Mohammad Fahes</a></h5>
+                <h5 class="list-inline-item" style="font-family: Helvetica, sans-serif;"><a href="https://tuanhungvu.github.io/">Tuan-Hung Vu</a></h5>
+                <h5 class="list-inline-item" style="font-family: Helvetica, sans-serif;"><a href="https://abursuc.github.io/">Andrei Bursuc</a></h5>
+                <h5 class="list-inline-item" style="font-family: Helvetica, sans-serif;"><a href="https://ptrckprz.github.io/">Patrick Pérez</a></h5>
+                <h5 class="list-inline-item" style="font-family: Helvetica, sans-serif;"><a href="https://team.inria.fr/rits/membres/raoul-de-charette/">Raoul de Charette</a></h5>
+            </ul>
+            <div class="text-center">
+                <a href="https://www.inria.fr/en">
+                    <img src="imgs/inr_logo_rouge.png" class="img-fluid" style="width: 150px;" alt="Inria logo">
+                </a>
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                <a href="https://www.valeo.com/en/valeo-ai/">
+                    <img src="imgs/valeoai_logo.png" class="img-fluid" style="width: 150px;" alt="Inria logo">
+                </a>
+            </div>
+        </div>
+
+        <style>
+            .btn-custom {
+              background-color: purple;
+              color: white; /* Text color */
+            }
+          </style>
+
+        <div class="row mt-4 mb-5">
+            <div class="col-md-6 mx-auto">
+                <div style="text-align: center;">
+                    <a class="btn btn-custom" href="">
+                        <span class="icon">
+                            <i class="ai ai-arxiv"></i>
+                        </span>
+                        <span>arXiv</span>
+                    </a>
+                    <a class="btn btn-custom" href="https://github.com/astra-vision/FAMix">
+                        <span class="icon">
+                            <i class="fab fa-github"></i>
+                        </span>
+                        <span>Code</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+        
+        <!--div class="row mt-4">
+            <div class="col-md-6 mx-auto">
+                <ul class="nav nav-justified">
+                    <li class="nav-item">
+                        <a href="">
+                        <img src="imgs/paper_icon_FAMix.png" height="80px">
+                            <p>Paper (arxiv)</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://github.com/astra-vision/FAMix">
+                        <img src="imgs/github.png" height="80px">
+                            <p>Code (soon)</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div-->
+        
+
+        <div class="row px-5 mb-5">
+            <h2 class="text-center">Abstract</h2>
+            <p class="col-md-9 mx-auto" style="text-align: justify; font-size: 18px;">    
+                Generalization to new domains not seen during training is one of the long-standing goals and challenges in deploying neural networks in real-world applications. Existing generalization techniques necessitate substantial data augmentation, potentially sourced from external datasets, and aim at learning invariant representations by imposing various alignment constraints. Large-scale pretraining has recently shown promising generalization capabilities, along with the potential of bridging different modalities.
+                For instance, the recent advent of vision-language models like CLIP has opened the doorway for vision models to exploit the textual modality. In this paper, we introduce a simple framework for generalizing semantic segmentation networks by employing language as the source of randomization. Our recipe comprises three key ingredients: i) the preservation of the intrinsic CLIP robustness through minimal fine-tuning, ii) language-driven local style augmentation, and iii) randomization by locally mixing the source and augmented styles during training. Extensive experiments report state-of-the-art results on various generalization benchmarks. The code will be made available.
+            </p>
+        </div>
+
+
+        <div class="row mb-5">
+            <h2 class="text-center">Approach</h2>
+            <p class="col-md-12 mx-auto" style="text-align: justify;">    
+            <img src="imgs/famix.png" style="width: 100%; height: 105%" class="centerImage">
+            </p>
+        </div>
+        
+        
+        <div class="row mb-5">
+            <h2 class="text-center">FAMix qualitative results on unseen youtube videos</h2>
+            <p class="col-md-9 mx-auto" style="text-align: justify; font-size: 18px;">    
+            We test our model trained on <strong>GTA5</strong> with a <strong>ResNet-50</strong> backbone on unseen driving scenes from <strong>Paris&#x1F1EB;&#x1F1F7;</strong>, <strong>Beirut&#x1F1F1;&#x1F1E7;</strong>, <strong>New Delhi&#x1F1EE;&#x1F1F3;</strong> and <strong>Houston&#x1F1FA;&#x1F1F8;</strong>. 
+            </p>
+            <div>
+                <center><iframe width="1000" height="500" src="https://www.youtube.com/embed/vyjtvx2El9Q?si=jr1BvOOMAAv3oAMG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></center>
+            </div>
+        </div>      
+        
+        <div class="row mb-5">  
+            <h2 class="text-center">Citation</h2>   
+            <div class="text-center" style="text-align: justify; font-size: 18px;">
+                    If you find this project useful for your research, please consider citing
+                    <!-- div style="background-color: #f5f5f5; padding:8px;"> 
+                        <div class="card-text" style="text-align: center;background-color: #f5f5f5;">     -->
+<pre class="col-md-8 mx-auto" style="text-align: center;background-color: #f5f5f5;">
+    
+@article{fahes2023simple,
+    title={A Simple Recipe for Language-guided Domain Generalized Segmentation},
+    author={Fahes, Mohammad and Vu, Tuan-Hung and Bursuc, Andrei and P{\'e}rez, Patrick and de Charette, Raoul},
+    journal={arXiv preprint},
+    year={2023}
+    }
+</pre>
+
+                </div>
+            </div>
+
+    <div class="row px-5 mb-5">
+        <h2 class="text-center">Acknowledgement</h2>
+        <p class="col-md-9 mx-auto" style="text-align: justify;">  
+            This work was partially funded by French project
+            SIGHT (ANR-20-CE23-0016). It was performed using HPC resources
+            from GENCI–IDRIS (Grant AD011014477).
+        </p>
+    </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/f790f706b7.js" crossorigin="anonymous"></script>
+    </body>
+</html>
