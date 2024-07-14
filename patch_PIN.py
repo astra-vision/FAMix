@@ -10,7 +10,7 @@ import random
 import argparse
 from utils.get_dataset import get_dataset
 from torch.utils import data
-from utils.utils import freeze_all
+from utils.freeze import freeze_all
 from torch.nn.functional import unfold
 from utils.PPIN import PPIN 
 

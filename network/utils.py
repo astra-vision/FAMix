@@ -18,6 +18,7 @@ class _Segmentation(nn.Module):
         features = {}
         features['low_level'] = self.backbone(x,trunc1=False,trunc2=False,
            trunc3=False,trunc4=False,get1=True,get2=False,get3=False,get4=False)
+        b_size = features['low_level'].shape[0]
         d2 ,d3 = features['low_level'].shape[2], features['low_level'].shape[3]
 
         if transfer:
@@ -25,22 +26,22 @@ class _Segmentation(nn.Module):
             mean, std = calc_mean_std(features['low_level'])
             self.size = features['low_level'].size()
 
-            mu_t_f1 = torch.zeros([8,256,d2,d3])
-            std_t_f1 = torch.zeros([8,256,d2,d3])
+            mu_t_f1 = torch.zeros([b_size,256,d2,d3])
+            std_t_f1 = torch.zeros([b_size,256,d2,d3])
             h=0
             w=0
 
             self.patches = unfold(features['low_level'], kernel_size=64, stride=64).permute(-1,0,1)
             self.patches = self.patches.reshape(self.patches.shape[0],self.patches.shape[1],256,d2//3,d3//3)
 
-            means_orig = torch.zeros([8,256,d2,d3])
-            stds_orig = torch.zeros([8,256,d2,d3])
+            means_orig = torch.zeros([b_size,256,d2,d3])
+            stds_orig = torch.zeros([b_size,256,d2,d3])
 
             for i in range(3*3):
                 mean , std = calc_mean_std(self.patches[i])
             
-                means_orig[:,:,h:h+d2//3,w:w+d3//3] = mean.expand((8,256,d2//3,d3//3))
-                stds_orig[:,:,h:h+d2//3,w:w+d3//3] =std.expand((8,256,d2//3,d3//3))
+                means_orig[:,:,h:h+d2//3,w:w+d3//3] = mean.expand((b_size,256,d2//3,d3//3))
+                stds_orig[:,:,h:h+d2//3,w:w+d3//3] =std.expand((b_size,256,d2//3,d3//3))
                 w+=d2//3
                 if (i+1)%3 == 0 :
                     w=0
