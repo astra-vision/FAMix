@@ -40,6 +40,7 @@ TL; DR: FAMix (for Freeze, Augment, and Mix) is a simple method for domain gener
 - [Installation](#installation)
   - [Dependencies](#dependencies)
   - [Datasets](#datasets)
+  - [Trained models](#trained-models)
 - [Running FAMix](#running-famix)
   - [Style mining](#style-mining)
   - [Training](#training)
@@ -108,6 +109,9 @@ conda activate famix_env
   ├── RGB/                   % input image 
   └── GT/                    % semantic segmentation labels
   ```
+
+## Trained models
+The trained models are available [here](https://drive.google.com/drive/folders/1GzajnYyDCUL7Xl0zjjU7_n73ucuyU5SS).
 
 # Running FAMix
 
