@@ -244,6 +244,9 @@ def main(random_styles=random_styles):
               
             #the target text is determined by the most frequent class in the corresponding crop
             labels_ = labels.unsqueeze(1)  # (B,1,768,768)
+            if labels_.type() != 'torch.FloatTensor':
+                labels_ = labels_.to(torch.float32)
+
             lbl_patches = unfold(labels_, kernel_size=256, stride=256).permute(-1,0,1).reshape(-1,1,256,256) ## (div*div*B,1,H/div,W/div)
 
             most_list = []
