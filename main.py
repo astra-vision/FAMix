@@ -130,7 +130,7 @@ def main():
     model.backbone.attnpool = nn.Identity()
 
     # freeze layers
-    if opts.dataset == "gta5":
+    if opts.dataset == "gta5" or opts.dataset == "synthia":
         freeze_1_2_3_p4(model)
     elif opts.dataset == "cityscapes":
         freeze_1_2_3(model)
@@ -221,11 +221,10 @@ def main():
     while True:  # cur_itrs < opts.total_itrs:
     # =====  Train  =====
 
-        if opts.dataset == "gta5":
+        if opts.dataset == "gta5" or opts.dataset == "synthia":
             model.backbone.layer4[2].train()
         elif opts.dataset == "cityscapes":
             model.backbone.layer4.train()
-        
         model.classifier.train()
 
         cur_epochs += 1
@@ -234,6 +233,8 @@ def main():
             
             cur_itrs += 1
             images = images.to(device, dtype=torch.float32)
+            if labels.type() != 'torch.FloatTensor':
+                labels = labels.to(torch.float32)
             # labels = labels.to(device, dtype=torch.long)
            
             optimizer.zero_grad()
