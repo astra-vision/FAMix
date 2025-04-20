@@ -36,7 +36,7 @@ TL; DR: FAMix (for Freeze, Augment, and Mix) is a simple method for domain gener
 
 
 
-⚠️⚠️**Note**: For testing datasets with higher resolution than the one used for training, scaling down the images by a factor of 2 (i.e., scale=0.5) and then upsampling the predictions back to the original resolution speeds up inference and can improve results. Thanks to [tpy001](https://github.com/tpy001) for raising this point in the [issues](https://github.com/astra-vision/FAMix/issues/5). The scale parameters can be customized when running [Evaluation](#evaluation) by adding --scale <value>.
+⚠️⚠️**Note**: For testing datasets with higher resolution than the one used for training, scaling down the images by a factor of 2 (i.e., scale=0.5) and then upsampling the predictions back to the original resolution speeds up inference and can improve results. Thanks to [tpy001](https://github.com/tpy001) for raising this point in the [issues](https://github.com/astra-vision/FAMix/issues/5). The scale parameter can be customized when running [Evaluation](#evaluation) by adding --scale \<value\>.
 
 Backbone | Decoder | Scale   | Cityscapes   |   Mapillary    | ACDC night | ACDC snow | ACDC rain | ACDC fog
 | :---------------: | :---------------: | :---------------: | :---------------: | :---------------: | :---------------: | :---------------: | :---------------: | :---------------: |
