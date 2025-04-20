@@ -15,7 +15,7 @@ from copy import deepcopy
 from utils.get_dataset import get_dataset
 from utils.freeze import * 
 from torch.nn.functional import unfold
-
+import torch.nn.functional as F
 
 from torch.utils.tensorboard import SummaryWriter
 writer = SummaryWriter()
@@ -70,10 +70,11 @@ def get_argparser():
     parser.add_argument("--path_for_stats",type=str, help="path for the optimized stats")
     
     parser.add_argument("--transfer", action='store_true',default=True)
+    parser.add_argument("--scale", type= float, default=1, help="scale factor for testing")
     return parser
 
 
-def validate(model, loader, device, metrics):
+def validate(model, loader, device, metrics,scale):
     """Do validation and return specified samples"""
     metrics.reset()
 
@@ -83,7 +84,11 @@ def validate(model, loader, device, metrics):
             images = images.to(device, dtype=torch.float32)
             labels = labels.to(device, dtype=torch.long)
 
+            images = F.interpolate(images, scale_factor= scale, mode= 'bilinear', align_corners=True)
+
             outputs, _ = model(images)
+            
+            outputs = F.interpolate(outputs, size=labels.shape[-2:], mode='bilinear', align_corners = True)
             
             preds = outputs.detach().max(dim=1)[1].cpu().numpy()
             targets = labels.cpu().numpy()
@@ -207,7 +212,7 @@ def main():
        
         model.eval()
 
-        val_score = validate(model=model, loader=val_loader, device=device, metrics=metrics)
+        val_score = validate(model=model, loader=val_loader, device=device, metrics=metrics, scale=opts.scale)
 
         print(metrics.to_str(val_score))
         print(val_score["Mean IoU"])
@@ -284,7 +289,7 @@ def main():
                 
                 model.eval()
 
-                val_score = validate(model=model, loader=val_loader,device=device, metrics=metrics)
+                val_score = validate(model=model, loader=val_loader,device=device, metrics=metrics,scale=1)
                 
                 print(metrics.to_str(val_score))
             

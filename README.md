@@ -34,6 +34,17 @@ TL; DR: FAMix (for Freeze, Augment, and Mix) is a simple method for domain gener
 
 [**Watch the full video on YouTube**](https://www.youtube.com/embed/vyjtvx2El9Q?si=jr1BvOOMAAv3oAMG)
 
+
+
+⚠️⚠️**Note**: For testing datasets with higher resolution than the one used for training, scaling down the images by a factor of 2 (i.e., scale=0.5) and then upsampling the predictions back to the original resolution speeds up inference and can improve results. Thanks to [tpy001](https://github.com/tpy001) for raising this point in the [issues](https://github.com/astra-vision/FAMix/issues/5). The scale parameters can be customized when running [Evaluation](#evaluation) by adding --scale <value>.
+
+Backbone | Decoder | Scale   | Cityscapes   |   Mapillary    | ACDC night | ACDC snow | ACDC rain | ACDC fog
+| :---------------: | :---------------: | :---------------: | :---------------: | :---------------: | :---------------: | :---------------: | :---------------: | :---------------: |
+RN50 | DLv3+ | 1      | **48.51**  | 52.39 | 15.02 | 37.38 | **39.56** | 40.99 |  
+RN50 | DLv3+ | 0.5    | 48.02 | **54.00** | **21.58** | **38.27** | 39.53 | **44.94** | 
+RN101 | DLv3+ | 1     | 49.13 | 53.41 | 21.28 | **41.49** | 42.19 | 44.30 |  
+RN101 | DLv3+ | 0.5   | **50.06** | **55.31** | **23.97** | 40.34 | **42.41** | **44.98** |
+
 # Table of Content
 - [Installation](#installation)
   - [Dependencies](#dependencies)
