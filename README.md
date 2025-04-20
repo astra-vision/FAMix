@@ -36,14 +36,27 @@ TL; DR: FAMix (for Freeze, Augment, and Mix) is a simple method for domain gener
 
 
 
-⚠️⚠️**Note**: For testing datasets with higher resolution than the one used for training, scaling down the images by a factor of 2 (i.e., scale=0.5) and then upsampling the predictions back to the original resolution speeds up inference and can improve results. Thanks to [tpy001](https://github.com/tpy001) for raising this point in the [issues](https://github.com/astra-vision/FAMix/issues/5). The scale parameter can be customized when running [Evaluation](#evaluation) by adding --scale \<value\>.
+⚠️⚠️**Note1**: For testing datasets with higher resolution than the one used for training, scaling down the images by a factor of 2 (i.e., scale=0.5) and then upsampling the predictions back to the original resolution speeds up inference and can improve results. Thanks to [tpy001](https://github.com/tpy001) for raising this point in the [issues](https://github.com/astra-vision/FAMix/issues/5). The scale parameter can be customized when running [Evaluation](#evaluation) by adding --scale \<value\>.
+
+⚠️⚠️**Note2**: One more trick to improve the performance at inference: 1- Predict with a scale=1 (i.e., original size of the input image), 2- Predict with downsampled image (scale=0.5), 3- ensemble the predictions. The code for this is added, it can be activated by adding in --scale \<value\> and --ensemble in [Evaluation](#evaluation). 
+
+
+*Results with RN50 backbone and DLv3+ decoder trained on GTA5:*
 
 Backbone | Decoder | Scale   | Cityscapes   |   Mapillary    | ACDC night | ACDC snow | ACDC rain | ACDC fog
 | :---------------: | :---------------: | :---------------: | :---------------: | :---------------: | :---------------: | :---------------: | :---------------: | :---------------: |
-RN50 | DLv3+ | 1      | **48.51**  | 52.39 | 15.02 | 37.38 | **39.56** | 40.99 |  
-RN50 | DLv3+ | 0.5    | 48.02 | **54.00** | **21.58** | **38.27** | 39.53 | **44.94** | 
-RN101 | DLv3+ | 1     | 49.13 | 53.41 | 21.28 | **41.49** | 42.19 | 44.30 |  
-RN101 | DLv3+ | 0.5   | **50.06** | **55.31** | **23.97** | 40.34 | **42.41** | **44.98** |
+RN50 | DLv3+ | 1      | 48.51  | 52.39 | 15.02 | 37.38 | 39.56 | 40.99 |  
+RN50 | DLv3+ | 0.5    | 48.02 | 54.00 | **21.58** | 38.27 | 39.53 | **44.94** | 
+RN50 | DLv3+ | ensemble (1 & 0.5) | **50.80** | **56.04** | 20.05 | **40.40** | **42.10** | 44.93 | 
+
+*Results with RN101 backbone and DLv3+ decoder trained on GTA5:*
+
+Backbone | Decoder | Scale   | Cityscapes   |   Mapillary    | ACDC night | ACDC snow | ACDC rain | ACDC fog
+| :---------------: | :---------------: | :---------------: | :---------------: | :---------------: | :---------------: | :---------------: | :---------------: | :---------------: |
+RN101 | DLv3+ | 1     | 49.13 | 53.41 | 21.28 | 41.49 | 42.19 | 44.30 |  
+RN101 | DLv3+ | 0.5   | 50.06 | 55.31 | 23.97 | 40.34 | 42.41 | 44.98 |
+RN101 | DLv3+ | ensemble (1 & 0.5) | **51.46** | **56.95** | **24.53** | **43.33** | **44.77** | **47.39** | 
+
 
 # Table of Content
 - [Installation](#installation)

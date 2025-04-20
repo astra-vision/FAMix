@@ -71,10 +71,11 @@ def get_argparser():
     
     parser.add_argument("--transfer", action='store_true',default=True)
     parser.add_argument("--scale", type= float, default=1, help="scale factor for testing")
+    parser.add_argument("--ensemble", action='store_true',default=False)
     return parser
 
 
-def validate(model, loader, device, metrics,scale):
+def validate(model, loader, device, metrics,scale,ensemble):
     """Do validation and return specified samples"""
     metrics.reset()
 
@@ -84,11 +85,17 @@ def validate(model, loader, device, metrics,scale):
             images = images.to(device, dtype=torch.float32)
             labels = labels.to(device, dtype=torch.long)
 
-            images = F.interpolate(images, scale_factor= scale, mode= 'bilinear', align_corners=True)
+            if ensemble:
+                images_orig = images
+                outputs_orig, _ = model(images_orig)
 
+            images = F.interpolate(images, scale_factor= scale, mode= 'bilinear', align_corners=True)
             outputs, _ = model(images)
             
             outputs = F.interpolate(outputs, size=labels.shape[-2:], mode='bilinear', align_corners = True)
+
+            if ensemble:
+                outputs = (outputs + outputs_orig)/2
             
             preds = outputs.detach().max(dim=1)[1].cpu().numpy()
             targets = labels.cpu().numpy()
@@ -212,7 +219,7 @@ def main():
        
         model.eval()
 
-        val_score = validate(model=model, loader=val_loader, device=device, metrics=metrics, scale=opts.scale)
+        val_score = validate(model=model, loader=val_loader, device=device, metrics=metrics, scale=opts.scale, ensemble=opts.ensemble)
 
         print(metrics.to_str(val_score))
         print(val_score["Mean IoU"])
@@ -289,7 +296,7 @@ def main():
                 
                 model.eval()
 
-                val_score = validate(model=model, loader=val_loader,device=device, metrics=metrics,scale=1)
+                val_score = validate(model=model, loader=val_loader,device=device, metrics=metrics,scale=1,ensemble=False)
                 
                 print(metrics.to_str(val_score))
             
